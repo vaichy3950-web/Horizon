@@ -1,8 +1,8 @@
 ---
-layout: default
-title: "Horizon Summary: 2026-04-30 (EN)"
+layout: post
+title: "Horizon 每日速递 - 2026-04-30"
 date: 2026-04-30
-lang: en
+lang: zh
 ---
 
 > From 15 items, 12 important content pieces were selected
