@@ -104,20 +104,17 @@ class OpenAIClient(AIClient):
     """Client for OpenAI models."""
 
     def __init__(self, config: AIConfig):
-        """Initialize OpenAI client.
-
-        Args:
-            config: AI configuration
-        """
         self.config = config
-
         api_key = os.getenv(config.api_key_env)
         if not api_key:
             raise ValueError(f"Missing API key: {config.api_key_env}")
 
-        kwargs = {"api_key": api_key}
-        if config.base_url:
-            kwargs["base_url"] = config.base_url
+        # --- 核心修改：强制指向 DeepSeek ---
+        kwargs = {
+            "api_key": api_key,
+            "base_url": "https://api.deepseek.com" 
+        }
+        # -------------------------------
 
         self.client = AsyncOpenAI(**kwargs)
         self.model = config.model
@@ -256,7 +253,7 @@ class AliClient(AIClient):
             "api_key": api_key,
             "base_url": config.base_url or "https://dashscope.aliyuncs.com/compatible-mode/v1",
         }
-        self.client = AsyncOpenAI(**kwargs)
+        self.client = AsyncOpenAI(api_key=api_key,base_url="https://api.deepseek.com")
         self.model = config.model
         self.temperature = config.temperature
         self.max_tokens = config.max_tokens
